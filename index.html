@@ -2,185 +2,255 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Valentine | Gauri 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Gauri</title>
 
 <style>
+:root {
+  --pink: #ff4d6d;
+  --soft: #ffd6e0;
+  --dark: #2b2b2b;
+}
+
+* { box-sizing: border-box; }
+
 body {
-    margin: 0;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ffc0cb, #ffffff, #ff4d6d);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #ffe6ec, #ffc2d1, #ff8fab);
+  font-family: "Segoe UI", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
+/* BACKGROUND PARTICLES */
+.heart {
+  position: fixed;
+  color: rgba(255,77,109,.6);
+  font-size: 18px;
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  from { transform: translateY(110vh) scale(0.8); }
+  to { transform: translateY(-10vh) scale(1.2); }
+}
+
+/* GLASS CARD */
 .screen {
-    display: none;
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  width: 92%;
+  max-width: 440px;
+  padding: 35px;
+  border-radius: 28px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+  text-align: center;
+  display: none;
+  animation: pop 0.8s ease;
 }
 
-.screen.active {
-    display: block;
+.screen.active { display: block; }
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
 }
 
+/* LETTER */
 .envelope {
-    font-size: 80px;
-    cursor: pointer;
+  font-size: 90px;
+  cursor: pointer;
+  animation: pulse 1.6s infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
-.message {
-    font-size: 18px;
-    line-height: 1.6;
-    color: #333;
+/* TEXT */
+h1, h2 {
+  color: var(--dark);
+}
+p {
+  color: #333;
+  font-size: 18px;
+  line-height: 1.7;
 }
 
+/* BUTTONS */
 .buttons {
-    margin-top: 20px;
-    position: relative;
-    height: 100px;
+  margin-top: 35px;
+  position: relative;
+  height: 120px;
 }
 
 button {
-    padding: 12px 25px;
-    font-size: 16px;
-    border-radius: 25px;
-    border: none;
-    cursor: pointer;
+  padding: 14px 34px;
+  border-radius: 40px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-#yesBtn {
-    background: #ff4d6d;
-    color: white;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+#yes {
+  background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+  color: white;
+  box-shadow: 0 10px 30px rgba(255,77,109,.5);
+  animation: heartbeat 1.4s infinite;
 }
 
-#noBtn {
-    background: white;
-    border: 2px solid #ff4d6d;
-    color: #ff4d6d;
-    position: absolute;
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
 }
 
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 20px;
+#no {
+  background: transparent;
+  color: var(--pink);
+  border: 2px solid var(--pink);
+  position: absolute;
 }
 
-.gallery img {
-    width: 100%;
-    border-radius: 12px;
+/* CELEBRATION */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  animation: fall 3s linear forwards;
 }
-
-.hearts {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.heart {
-    position: absolute;
-    font-size: 24px;
-    animation: fall 4s linear;
-}
-
 @keyframes fall {
-    0% { transform: translateY(-50px); opacity: 1; }
-    100% { transform: translateY(100vh); opacity: 0; }
+  to { transform: translateY(120vh) rotate(720deg); }
+}
+
+/* SLIDER */
+.slider img {
+  width: 100%;
+  border-radius: 18px;
+  display: none;
+}
+.slider img.active {
+  display: block;
+  animation: fadeImg 1.2s ease;
+}
+@keyframes fadeImg {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-    <source src="song.mp3" type="audio/mpeg">
-</audio>
+<!-- BACKGROUND HEARTS -->
+<script>
+for(let i=0;i<30;i++){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(6+Math.random()*6)+"s";
+  h.style.fontSize=(14+Math.random()*20)+"px";
+  document.body.appendChild(h);
+}
+</script>
 
-<div class="screen active" id="letter">
-    <div class="envelope" onclick="openLetter()">💌</div>
-    <h3>A letter for you, Gauri</h3>
-    <p>(Tap to open)</p>
+<!-- SCREEN 1 -->
+<div class="screen active" id="s1">
+  <div class="envelope" onclick="openLetter()">💌</div>
+  <h1>A letter for you, Gauri</h1>
+  <p>Tap gently… this one matters.</p>
 </div>
 
-<div class="screen" id="ask">
-    <div class="message">
-        <p>Hey Gauri,</p>
-        <p>
-            Every little moment with you<br>
-            makes my days brighter.
-        </p>
-        <p>
-            So here I am, being brave.
-        </p>
-        <p><strong>Will you be my Valentine?</strong></p>
-    </div>
+<!-- SCREEN 2 -->
+<div class="screen" id="s2">
+  <p><strong>Hey Gauri,</strong></p>
 
-    <div class="buttons">
-        <button id="yesBtn" onclick="sayYes()">YES</button>
-        <button id="noBtn" onmouseover="moveNo()">NO</button>
-    </div>
+  <p>
+    Somewhere between random conversations  
+    and quiet moments…  
+    you became important to me.
+  </p>
+
+  <p>
+    You feel like comfort, curiosity,  
+    and something I don’t want to lose.
+  </p>
+
+  <p>
+    So this isn’t a joke.  
+    And this isn’t casual.
+  </p>
+
+  <h2>Will you be my Valentine? 🌹</h2>
+
+  <div class="buttons">
+    <button id="yes" onclick="celebrate()">YES</button>
+    <button id="no" onmouseover="escapeNo()">NO</button>
+  </div>
 </div>
 
-<div class="screen" id="final">
-    <h2>You said YES!</h2>
-    <p>I can't wait to make more memories with you.</p>
+<!-- SCREEN 3 -->
+<div class="screen" id="s3">
+  <h1>You said YES 🎉</h1>
 
-    <div class="gallery">
-        <img src="photo1.jpeg">
-        <img src="photo2.jpeg">
-        <img src="photo3.jpeg">
-        <img src="photo4.jpeg">
+  <p>
+    And just like that,  
+    this moment became unforgettable.
+  </p>
 
-    </div>
+  <p>
+    I can’t promise perfection,  
+    but I promise intention.
+  </p>
+
+  <div class="slider">
+    <img src="photo1.jpeg" class="active">
+    <img src="photo2.jpeg">
+    <img src="photo3.jpeg">
+    <img src="photo4.jpeg">
+  </div>
 </div>
-
-<div class="hearts" id="hearts"></div>
 
 <script>
-function openLetter() {
-    document.getElementById("letter").classList.remove("active");
-    document.getElementById("ask").classList.add("active");
-    document.getElementById("music").play();
-    moveNo();
+function openLetter(){
+  s1.classList.remove("active");
+  s2.classList.add("active");
 }
 
-function sayYes() {
-    document.getElementById("ask").classList.remove("active");
-    document.getElementById("final").classList.add("active");
-    startHearts();
+function escapeNo(){
+  no.style.left=Math.random()*260+"px";
+  no.style.top=Math.random()*90+"px";
 }
 
-function moveNo() {
-    const btn = document.getElementById("noBtn");
-    btn.style.left = Math.random() * 250 + "px";
-    btn.style.top = Math.random() * 70 + "px";
+function celebrate(){
+  s2.classList.remove("active");
+  s3.classList.add("active");
+  confetti();
+  slider();
 }
 
-function startHearts() {
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerText = "❤";
-        heart.style.left = Math.random() * 100 + "vw";
-        document.getElementById("hearts").appendChild(heart);
-        setTimeout(() => heart.remove(), 4000);
-    }, 300);
+function confetti(){
+  for(let i=0;i<120;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},100%,60%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+
+function slider(){
+  let imgs=document.querySelectorAll(".slider img");
+  let i=0;
+  setInterval(()=>{
+    imgs.forEach(img=>img.classList.remove("active"));
+    imgs[i].classList.add("active");
+    i=(i+1)%imgs.length;
+  },2200);
 }
 </script>
 
