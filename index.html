@@ -2,151 +2,170 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Valentine | Gauri 💖</title>
+<title>For Gauri</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-:root {
-  --pink: #ff4d6d;
-  --soft: #ffd6e0;
-  --dark: #2b2b2b;
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#fff1f6,#ffffff);
+  height:100vh;
+  overflow:hidden;
+  color:#2b2b2b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  height: 100vh;
-  background: radial-gradient(circle at top, #ffe6ec, #ffc2d1, #ff8fab);
-  font-family: "Segoe UI", sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+/* floating hearts */
+.heart{
+  position:fixed;
+  font-size:18px;
+  color:#ff6f91;
+  opacity:.25;
+  animation:float 8s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(110vh);}
+  to{transform:translateY(-10vh);}
 }
 
-/* BACKGROUND PARTICLES */
-.heart {
-  position: fixed;
-  color: rgba(255,77,109,.6);
-  font-size: 18px;
-  animation: floatUp linear infinite;
+/* screens */
+.screen{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .8s ease, transform .8s ease;
 }
-@keyframes floatUp {
-  from { transform: translateY(110vh) scale(0.8); }
-  to { transform: translateY(-10vh) scale(1.2); }
+.screen.active{
+  opacity:1;
+  pointer-events:auto;
+  transform:scale(1);
 }
-
-/* GLASS CARD */
-.screen {
-  width: 92%;
-  max-width: 440px;
-  padding: 35px;
-  border-radius: 28px;
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
-  text-align: center;
-  display: none;
-  animation: pop 0.8s ease;
+.screen.exit{
+  opacity:0;
+  transform:scale(1.05);
 }
 
-.screen.active { display: block; }
-
-@keyframes pop {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
+/* card */
+.card{
+  background:rgba(255,255,255,.7);
+  backdrop-filter:blur(18px);
+  padding:50px 30px;
+  border-radius:30px;
+  max-width:520px;
+  width:90%;
+  text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.25);
 }
 
-/* LETTER */
-.envelope {
-  font-size: 90px;
-  cursor: pointer;
-  animation: pulse 1.6s infinite;
+/* typography */
+h1,h2{
+  font-family:'DM Serif Display',serif;
 }
-@keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
-
-/* TEXT */
-h1, h2 {
-  color: var(--dark);
-}
-p {
-  color: #333;
-  font-size: 18px;
-  line-height: 1.7;
+p{
+  margin-top:18px;
+  font-size:18px;
+  line-height:1.8;
+  color:#444;
 }
 
-/* BUTTONS */
-.buttons {
-  margin-top: 35px;
-  position: relative;
-  height: 120px;
+/* message animation */
+.line{
+  opacity:0;
+  transform:translateY(12px);
+  animation:lineIn .8s forwards;
+}
+@keyframes lineIn{
+  to{opacity:1;transform:translateY(0);}
 }
 
-button {
-  padding: 14px 34px;
-  border-radius: 40px;
-  font-size: 18px;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
+/* buttons */
+.buttons{
+  margin-top:40px;
+  position:relative;
+  height:120px;
+}
+button{
+  padding:14px 38px;
+  border-radius:40px;
+  font-size:18px;
+  border:none;
+  cursor:pointer;
+}
+#yes{
+  background:#ff6f91;
+  color:#fff;
+  box-shadow:0 12px 30px rgba(255,111,145,.5);
+}
+#no{
+  background:transparent;
+  border:2px solid #ff6f91;
+  color:#ff6f91;
+  position:absolute;
 }
 
-#yes {
-  background: linear-gradient(135deg, #ff4d6d, #ff8fab);
-  color: white;
-  box-shadow: 0 10px 30px rgba(255,77,109,.5);
-  animation: heartbeat 1.4s infinite;
+/* gallery animation */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  margin-top:30px;
+}
+.gallery img{
+  width:100%;
+  border-radius:18px;
+  opacity:0;
+  transform:scale(.9) translateY(20px);
+  animation:imgIn .8s forwards;
+}
+.gallery img:nth-child(1){animation-delay:.2s;}
+.gallery img:nth-child(2){animation-delay:.4s;}
+.gallery img:nth-child(3){animation-delay:.6s;}
+.gallery img:nth-child(4){animation-delay:.8s;}
+
+@keyframes imgIn{
+  to{opacity:1;transform:scale(1) translateY(0);}
 }
 
-@keyframes heartbeat {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+/* signature */
+.signature{
+  margin-top:30px;
+  font-family:'DM Serif Display',serif;
+  font-size:24px;
+  opacity:.8;
 }
 
-#no {
-  background: transparent;
-  color: var(--pink);
-  border: 2px solid var(--pink);
-  position: absolute;
+/* envelope */
+.envelope{
+  font-size:90px;
+  cursor:pointer;
+  animation:pulse 1.6s infinite;
 }
-
-/* CELEBRATION */
-.confetti {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  animation: fall 3s linear forwards;
-}
-@keyframes fall {
-  to { transform: translateY(120vh) rotate(720deg); }
-}
-
-/* SLIDER */
-.slider img {
-  width: 100%;
-  border-radius: 18px;
-  display: none;
-}
-.slider img.active {
-  display: block;
-  animation: fadeImg 1.2s ease;
-}
-@keyframes fadeImg {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.12);}
 }
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND HEARTS -->
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-for(let i=0;i<30;i++){
+for(let i=0;i<28;i++){
   let h=document.createElement("div");
   h.className="heart";
   h.innerHTML="❤";
@@ -159,98 +178,87 @@ for(let i=0;i<30;i++){
 
 <!-- SCREEN 1 -->
 <div class="screen active" id="s1">
-  <div class="envelope" onclick="openLetter()">💌</div>
-  <h1>A letter for you, Gauri</h1>
-  <p>Tap gently… this one matters.</p>
+  <div class="card">
+    <div class="envelope" onclick="goTo(1)">💌</div>
+    <h1>Gauri</h1>
+    <p>Some feelings are better shown
+than explained.</p>
+  </div>
 </div>
 
 <!-- SCREEN 2 -->
 <div class="screen" id="s2">
-  <p><strong>Hey Gauri,</strong></p>
+  <div class="card">
+    <p class="line" style="animation-delay:.3s">Some people arrive quietly.</p>
+    <p class="line" style="animation-delay:1.2s">No noise. No drama.</p>
+    <p class="line" style="animation-delay:2.1s">Just presence.</p>
+    <p class="line" style="animation-delay:3.2s">And suddenly, they matter.</p>
+    <p class="line" style="animation-delay:4.4s">You became that.</p>
 
-  <p>
-    Somewhere between random conversations  
-    and quiet moments…  
-    you became important to me.
-  </p>
-
-  <p>
-    You feel like comfort, curiosity,  
-    and something I don’t want to lose.
-  </p>
-
-  <p>
-    So this isn’t a joke.  
-    And this isn’t casual.
-  </p>
-
-  <h2>Will you be my Valentine? 🌹</h2>
-
-  <div class="buttons">
-    <button id="yes" onclick="celebrate()">YES</button>
-    <button id="no" onmouseover="escapeNo()">NO</button>
+    <div class="buttons">
+      <button id="yes" onclick="goTo(2)">Continue</button>
+    </div>
   </div>
 </div>
 
 <!-- SCREEN 3 -->
 <div class="screen" id="s3">
-  <h1>You said YES 🎉</h1>
+  <div class="card">
+    <h2>Will you be my Valentine?</h2>
 
-  <p>
-    And just like that,  
-    this moment became unforgettable.
-  </p>
+    <div class="buttons">
+      <button id="yes" onclick="final()">Yes</button>
+      <button id="no" onmouseover="run()">No</button>
+    </div>
+  </div>
+</div>
 
-  <p>
-    I can’t promise perfection,  
-    but I promise intention.
-  </p>
+<!-- SCREEN 4 -->
+<div class="screen" id="s4">
+  <div class="card">
+    <h2>You chose us 🌷</h2>
 
-  <div class="slider">
-    <img src="photo1.jpeg" class="active">
-    <img src="photo2.jpeg">
-    <img src="photo3.jpeg">
-    <img src="photo4.jpeg">
+    <div class="gallery">
+      <img src="photo1.jpeg">
+      <img src="photo2.jpeg">
+      <img src="photo3.jpeg">
+      <img src="photo4.jpeg">
+    </div>
+
+    <div class="signature">— Kshitij</div>
   </div>
 </div>
 
 <script>
-function openLetter(){
-  s1.classList.remove("active");
-  s2.classList.add("active");
-}
+function goTo(step){
+  const current=document.querySelector(".screen.active");
+  current.classList.remove("active");
+  current.classList.add("exit");
 
-function escapeNo(){
-  no.style.left=Math.random()*260+"px";
-  no.style.top=Math.random()*90+"px";
-}
+  setTimeout(()=>{
+    current.classList.remove("exit");
+    document.getElementById("s"+(step+1)).classList.add("active");
+  },600);
 
-function celebrate(){
-  s2.classList.remove("active");
-  s3.classList.add("active");
-  confetti();
-  slider();
-}
-
-function confetti(){
-  for(let i=0;i<120;i++){
-    let c=document.createElement("div");
-    c.className="confetti";
-    c.style.left=Math.random()*100+"vw";
-    c.style.background=`hsl(${Math.random()*360},100%,60%)`;
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),3000);
+  if(step===1){
+    music.volume=0;
+    music.play();
+    let v=0;
+    let i=setInterval(()=>{
+      v+=0.02;
+      music.volume=v;
+      if(v>=0.6) clearInterval(i);
+    },120);
   }
 }
 
-function slider(){
-  let imgs=document.querySelectorAll(".slider img");
-  let i=0;
-  setInterval(()=>{
-    imgs.forEach(img=>img.classList.remove("active"));
-    imgs[i].classList.add("active");
-    i=(i+1)%imgs.length;
-  },2200);
+function final(){
+  goTo(3);
+}
+
+function run(){
+  no.style.left=Math.random()*260+"px";
+  no.style.top=Math.random()*90+"px";
 }
 </script>
 
