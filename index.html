@@ -5,7 +5,7 @@
 <title>For Gauri</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -21,17 +21,15 @@ body{
   color:#2b2b2b;
 }
 
-/* HEART BACKGROUND */
+/* floating hearts */
 .heart{
   position:fixed;
-  bottom:-20px;
+  bottom:-30px;
   color:#ff6f91;
   opacity:.25;
-  animation:float 10s linear infinite;
+  animation:rise 10s linear infinite;
 }
-@keyframes float{
-  to{transform:translateY(-120vh)}
-}
+@keyframes rise{to{transform:translateY(-120vh)}}
 
 /* screens */
 .screen{
@@ -42,7 +40,7 @@ body{
   align-items:center;
   opacity:0;
   pointer-events:none;
-  transition:.8s ease;
+  transition:opacity .8s ease;
 }
 .screen.active{
   opacity:1;
@@ -51,10 +49,10 @@ body{
 
 /* card */
 .card{
-  background:rgba(255,255,255,.78);
+  background:rgba(255,255,255,.82);
   backdrop-filter:blur(18px);
   border-radius:30px;
-  padding:50px 30px;
+  padding:48px 30px;
   max-width:520px;
   width:90%;
   text-align:center;
@@ -67,31 +65,25 @@ body{
   cursor:pointer;
   animation:pulse 1.6s infinite;
 }
-@keyframes pulse{
-  50%{transform:scale(1.12)}
-}
+@keyframes pulse{50%{transform:scale(1.12)}}
 .mailbox.open{
-  animation:openMail 1s forwards;
+  animation:openMail .9s forwards;
 }
 @keyframes openMail{
   50%{transform:scale(1.3) rotate(10deg)}
   100%{opacity:0;transform:scale(2)}
 }
 
-/* text animations */
-.letter p,.personal p{
+/* text reveal */
+.fade p{
   opacity:0;
   transform:translateY(14px);
   animation:fadeUp .9s forwards;
 }
-.letter p:nth-child(1){animation-delay:.4s}
-.letter p:nth-child(2){animation-delay:1.4s}
-.letter p:nth-child(3){animation-delay:2.4s}
-.letter p:nth-child(4){animation-delay:3.4s}
-
-.personal p:nth-child(1){animation-delay:.6s}
-.personal p:nth-child(2){animation-delay:1.6s}
-.personal p:nth-child(3){animation-delay:2.6s}
+.fade p:nth-child(1){animation-delay:.5s}
+.fade p:nth-child(2){animation-delay:1.5s}
+.fade p:nth-child(3){animation-delay:2.5s}
+.fade p:nth-child(4){animation-delay:3.5s}
 
 @keyframes fadeUp{
   to{opacity:1;transform:translateY(0)}
@@ -122,48 +114,35 @@ button{
   position:absolute;
 }
 
-/* ===== PHOTO FRAMES + ANIMATION ===== */
+/* framed photos */
 .gallery{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:22px;
   margin-top:30px;
 }
-
-/* frame */
 .frame{
   background:#fff;
   padding:10px;
   border-radius:18px;
-  box-shadow:
-    0 15px 40px rgba(0,0,0,.18),
-    inset 0 0 0 1px rgba(255,111,145,.15);
   opacity:0;
-  transform:translateY(30px) scale(.9);
-  animation:frameIn 1s forwards, floatFrame 6s ease-in-out infinite;
+  transform:scale(.9);
+  box-shadow:0 15px 40px rgba(0,0,0,.18);
+  transition:1.2s ease;
 }
-
-/* stagger */
-.frame:nth-child(1){animation-delay:.2s}
-.frame:nth-child(2){animation-delay:.5s}
-.frame:nth-child(3){animation-delay:.8s}
-.frame:nth-child(4){animation-delay:1.1s}
-
+.frame.show{
+  opacity:1;
+  transform:scale(1);
+}
 .frame img{
   width:100%;
   border-radius:14px;
-  display:block;
 }
 
-/* entrance */
-@keyframes frameIn{
-  to{opacity:1;transform:translateY(0) scale(1)}
-}
-
-/* slow floating motion */
+/* subtle float */
+.frame{animation:floatFrame 6s ease-in-out infinite}
 @keyframes floatFrame{
-  0%,100%{transform:translateY(0) rotate(0deg)}
-  50%{transform:translateY(-6px) rotate(0.5deg)}
+  50%{transform:translateY(-6px) scale(1)}
 }
 </style>
 </head>
@@ -171,10 +150,11 @@ button{
 <body>
 
 <audio id="music" loop>
-  <source src="song.mp3" type="audio/mpeg">
+  <source src="./song.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+/* hearts */
 for(let i=0;i<30;i++){
   let h=document.createElement("div");
   h.className="heart";
@@ -196,25 +176,21 @@ for(let i=0;i<30;i++){
 
 <!-- PAGE 2 -->
 <div class="screen" id="p2">
-  <div class="card letter">
+  <div class="card fade">
     <p>Hey Gauri,</p>
-    <p>I thought of saying this in person,</p>
-    <p>but some feelings deserve a quieter moment.</p>
-    <p>So I wrote this instead.</p>
+    <p>I wanted this to feel calm.</p>
+    <p>Something you don’t rush through.</p>
+    <p>So take a moment.</p>
     <button onclick="go(3)">Continue</button>
   </div>
 </div>
 
 <!-- PAGE 3 -->
 <div class="screen" id="p3">
-  <div class="card personal">
-    <p>This is where I’m honest.</p>
-    <p>
-      You make things feel lighter without trying.
-      I like the way conversations with you never feel forced.
-      Somewhere between all of that, I realised I care.
-    </p>
-    <p>I just wanted you to know this.</p>
+  <div class="card fade">
+    <p>This is the honest part.</p>
+    <p>You make ordinary moments feel lighter.</p>
+    <p>Somewhere in between, I realised I care.</p>
     <button onclick="go(4)">Continue</button>
   </div>
 </div>
@@ -234,20 +210,23 @@ for(let i=0;i<30;i++){
 <div class="screen" id="p5">
   <div class="card">
     <h2>You chose us 🌷</h2>
+    <p style="font-size:14px;opacity:.7">Some memories appear with the music</p>
+
     <div class="gallery">
-      <div class="frame"><img src="photo1.jpeg"></div>
-      <div class="frame"><img src="photo2.jpeg"></div>
-      <div class="frame"><img src="photo3.jpeg"></div>
-      <div class="frame"><img src="photo4.jpeg"></div>
+      <div class="frame" id="f1"><img src="./photo1.jpeg"></div>
+      <div class="frame" id="f2"><img src="./photo2.jpeg"></div>
+      <div class="frame" id="f3"><img src="./photo3.jpeg"></div>
+      <div class="frame" id="f4"><img src="./photo4.jpeg"></div>
     </div>
   </div>
 </div>
 
 <script>
+const music=document.getElementById("music");
+
 function openMail(){
-  const music=document.getElementById("music");
   music.volume=0;
-  music.play();
+  music.play().catch(()=>{});
   let v=0;
   let fade=setInterval(()=>{
     v+=0.02;
@@ -256,17 +235,32 @@ function openMail(){
   },120);
 
   mail.classList.add("open");
-  setTimeout(()=>go(2),800);
+  setTimeout(()=>go(2),900);
 }
 
 function go(n){
   document.querySelector(".screen.active").classList.remove("active");
   document.getElementById("p"+n).classList.add("active");
+
+  if(n===5) startMemoryUnlock();
 }
 
 function run(){
   no.style.left=Math.random()*260+"px";
   no.style.top=Math.random()*90+"px";
+}
+
+/* OUT-OF-THE-BOX MEMORY UNLOCK */
+function startMemoryUnlock(){
+  const frames=[f1,f2,f3,f4];
+  let index=0;
+
+  const interval=setInterval(()=>{
+    if(index<frames.length){
+      frames[index].classList.add("show");
+      index++;
+    } else clearInterval(interval);
+  },2000);
 }
 </script>
 
