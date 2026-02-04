@@ -5,106 +5,112 @@
 <title>For Gauri</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(180deg,#fff1f6,#ffffff);
   height:100vh;
+  background:linear-gradient(180deg,#fff1f6,#ffffff);
+  font-family:'Poppins',sans-serif;
   overflow:hidden;
-  color:#2b2b2b;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
+  color:#2b2b2b;
 }
 
-/* floating hearts */
+/* HEART BACKGROUND */
 .heart{
   position:fixed;
-  font-size:18px;
+  bottom:-20px;
   color:#ff6f91;
   opacity:.25;
-  animation:float 8s linear infinite;
+  animation:float 10s linear infinite;
 }
 @keyframes float{
-  from{transform:translateY(110vh);}
-  to{transform:translateY(-10vh);}
+  from{transform:translateY(0)}
+  to{transform:translateY(-120vh)}
 }
 
 /* screens */
 .screen{
   position:absolute;
-  width:100%;
-  height:100%;
+  inset:0;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   opacity:0;
   pointer-events:none;
-  transition:opacity .8s ease, transform .8s ease;
+  transition:opacity .8s ease;
 }
 .screen.active{
   opacity:1;
   pointer-events:auto;
-  transform:scale(1);
-}
-.screen.exit{
-  opacity:0;
-  transform:scale(1.05);
 }
 
 /* card */
 .card{
-  background:rgba(255,255,255,.7);
+  background:rgba(255,255,255,.78);
   backdrop-filter:blur(18px);
-  padding:50px 30px;
   border-radius:30px;
+  padding:50px 30px;
   max-width:520px;
   width:90%;
   text-align:center;
   box-shadow:0 30px 80px rgba(0,0,0,.25);
 }
 
-/* typography */
-h1,h2{
-  font-family:'DM Serif Display',serif;
+/* PAGE 1 – MAILBOX */
+.mailbox{
+  font-size:90px;
+  cursor:pointer;
+  animation:pulse 1.6s infinite;
 }
-p{
-  margin-top:18px;
-  font-size:18px;
-  line-height:1.8;
-  color:#444;
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.12)}
+}
+.mailbox.open{
+  animation:openMail 1s forwards;
+}
+@keyframes openMail{
+  50%{transform:scale(1.3) rotate(10deg)}
+  100%{opacity:0;transform:scale(2)}
 }
 
-/* message animation */
-.line{
+/* PAGE 2 – LETTER */
+.letter p{
   opacity:0;
-  transform:translateY(12px);
-  animation:lineIn .8s forwards;
+  transform:translateY(14px);
+  animation:letterIn .9s forwards;
 }
-@keyframes lineIn{
-  to{opacity:1;transform:translateY(0);}
+.letter p:nth-child(1){animation-delay:.4s}
+.letter p:nth-child(2){animation-delay:1.4s}
+.letter p:nth-child(3){animation-delay:2.4s}
+.letter p:nth-child(4){animation-delay:3.4s}
+
+@keyframes letterIn{
+  to{opacity:1;transform:translateY(0)}
 }
 
-/* buttons */
+/* PAGE 3 – QUESTION */
 .buttons{
   margin-top:40px;
   position:relative;
   height:120px;
 }
 button{
-  padding:14px 38px;
+  padding:14px 36px;
   border-radius:40px;
-  font-size:18px;
   border:none;
+  font-size:18px;
   cursor:pointer;
 }
 #yes{
   background:#ff6f91;
-  color:#fff;
+  color:white;
   box-shadow:0 12px 30px rgba(255,111,145,.5);
 }
 #no{
@@ -114,46 +120,32 @@ button{
   position:absolute;
 }
 
-/* gallery animation */
+/* PAGE 4 – PHOTOS + EFFECTS */
 .gallery{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:16px;
+  gap:18px;
   margin-top:30px;
 }
 .gallery img{
   width:100%;
-  border-radius:18px;
+  border-radius:20px;
   opacity:0;
-  transform:scale(.9) translateY(20px);
-  animation:imgIn .8s forwards;
+  transform:translateY(30px) scale(.9);
+  animation:photoIn 1s forwards, glow 3s infinite alternate;
+  box-shadow:0 20px 50px rgba(0,0,0,.2);
 }
-.gallery img:nth-child(1){animation-delay:.2s;}
-.gallery img:nth-child(2){animation-delay:.4s;}
-.gallery img:nth-child(3){animation-delay:.6s;}
-.gallery img:nth-child(4){animation-delay:.8s;}
+.gallery img:nth-child(1){animation-delay:.2s}
+.gallery img:nth-child(2){animation-delay:.5s}
+.gallery img:nth-child(3){animation-delay:.8s}
+.gallery img:nth-child(4){animation-delay:1.1s}
 
-@keyframes imgIn{
-  to{opacity:1;transform:scale(1) translateY(0);}
+@keyframes photoIn{
+  to{opacity:1;transform:translateY(0) scale(1)}
 }
-
-/* signature */
-.signature{
-  margin-top:30px;
-  font-family:'DM Serif Display',serif;
-  font-size:24px;
-  opacity:.8;
-}
-
-/* envelope */
-.envelope{
-  font-size:90px;
-  cursor:pointer;
-  animation:pulse 1.6s infinite;
-}
-@keyframes pulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.12);}
+@keyframes glow{
+  from{box-shadow:0 0 20px rgba(255,111,145,.3)}
+  to{box-shadow:0 0 45px rgba(255,111,145,.6)}
 }
 </style>
 </head>
@@ -165,95 +157,87 @@ button{
 </audio>
 
 <script>
-for(let i=0;i<28;i++){
+/* hearts */
+for(let i=0;i<30;i++){
   let h=document.createElement("div");
   h.className="heart";
   h.innerHTML="❤";
   h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(14+Math.random()*18)+"px";
   h.style.animationDuration=(6+Math.random()*6)+"s";
-  h.style.fontSize=(14+Math.random()*20)+"px";
   document.body.appendChild(h);
 }
 </script>
 
-<!-- SCREEN 1 -->
-<div class="screen active" id="s1">
+<!-- PAGE 1 -->
+<div class="screen active" id="p1">
   <div class="card">
-    <div class="envelope" onclick="goTo(1)">💌</div>
-    <h1>Gauri</h1>
-    <p>Some feelings are better shown
-than explained.</p>
+    <div class="mailbox" id="mail" onclick="openMail()">📮</div>
+    <p>You’ve got a letter</p>
   </div>
 </div>
 
-<!-- SCREEN 2 -->
-<div class="screen" id="s2">
-  <div class="card">
-    <p class="line" style="animation-delay:.3s">Some people arrive quietly.</p>
-    <p class="line" style="animation-delay:1.2s">No noise. No drama.</p>
-    <p class="line" style="animation-delay:2.1s">Just presence.</p>
-    <p class="line" style="animation-delay:3.2s">And suddenly, they matter.</p>
-    <p class="line" style="animation-delay:4.4s">You became that.</p>
-
-    <div class="buttons">
-      <button id="yes" onclick="goTo(2)">Continue</button>
-    </div>
+<!-- PAGE 2 -->
+<div class="screen" id="p2">
+  <div class="card letter">
+    <p>Hey Gauri,</p>
+    <p>I thought of saying this in person,</p>
+    <p>but some feelings deserve a quieter moment.</p>
+    <p>So I wrote this instead.</p>
+    <button onclick="startMusicAndGo()">Continue</button>
   </div>
 </div>
 
-<!-- SCREEN 3 -->
-<div class="screen" id="s3">
+<!-- PAGE 3 -->
+<div class="screen" id="p3">
   <div class="card">
     <h2>Will you be my Valentine?</h2>
-
     <div class="buttons">
-      <button id="yes" onclick="final()">Yes</button>
+      <button id="yes" onclick="yes()">Yes</button>
       <button id="no" onmouseover="run()">No</button>
     </div>
   </div>
 </div>
 
-<!-- SCREEN 4 -->
-<div class="screen" id="s4">
+<!-- PAGE 4 -->
+<div class="screen" id="p4">
   <div class="card">
     <h2>You chose us 🌷</h2>
-
     <div class="gallery">
-      <img src="photo1.jpeg">
-      <img src="photo2.jpeg">
-      <img src="photo3.jpeg">
-      <img src="photo4.jpeg">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
+      <img src="photo3.jpg">
+      <img src="photo4.jpg">
     </div>
-
-    <div class="signature">— Kshitij</div>
   </div>
 </div>
 
 <script>
-function goTo(step){
-  const current=document.querySelector(".screen.active");
-  current.classList.remove("active");
-  current.classList.add("exit");
-
-  setTimeout(()=>{
-    current.classList.remove("exit");
-    document.getElementById("s"+(step+1)).classList.add("active");
-  },600);
-
-  if(step===1){
-    music.volume=0;
-    music.play();
-    let v=0;
-    let i=setInterval(()=>{
-      v+=0.02;
-      music.volume=v;
-      if(v>=0.6) clearInterval(i);
-    },120);
-  }
+function openMail(){
+  document.getElementById("mail").classList.add("open");
+  setTimeout(()=>go(2),800);
 }
 
-function final(){
-  goTo(3);
+function startMusicAndGo(){
+  const music=document.getElementById("music");
+  music.volume=0;
+  music.play();
+  let v=0;
+  let fade=setInterval(()=>{
+    v+=0.02;
+    music.volume=v;
+    if(v>=0.6) clearInterval(fade);
+  },120);
+  go(3);
+}
+
+function go(n){
+  document.querySelector(".screen.active").classList.remove("active");
+  document.getElementById("p"+n).classList.add("active");
+}
+
+function yes(){
+  go(4);
 }
 
 function run(){
