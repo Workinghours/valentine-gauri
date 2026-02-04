@@ -30,7 +30,6 @@ body{
   animation:float 10s linear infinite;
 }
 @keyframes float{
-  from{transform:translateY(0)}
   to{transform:translateY(-120vh)}
 }
 
@@ -43,7 +42,7 @@ body{
   align-items:center;
   opacity:0;
   pointer-events:none;
-  transition:opacity .8s ease;
+  transition:.8s ease;
 }
 .screen.active{
   opacity:1;
@@ -62,14 +61,13 @@ body{
   box-shadow:0 30px 80px rgba(0,0,0,.25);
 }
 
-/* PAGE 1 – MAILBOX */
+/* mailbox */
 .mailbox{
   font-size:90px;
   cursor:pointer;
   animation:pulse 1.6s infinite;
 }
 @keyframes pulse{
-  0%,100%{transform:scale(1)}
   50%{transform:scale(1.12)}
 }
 .mailbox.open{
@@ -80,22 +78,26 @@ body{
   100%{opacity:0;transform:scale(2)}
 }
 
-/* PAGE 2 – LETTER */
-.letter p{
+/* text animations */
+.letter p,.personal p{
   opacity:0;
   transform:translateY(14px);
-  animation:letterIn .9s forwards;
+  animation:fadeUp .9s forwards;
 }
 .letter p:nth-child(1){animation-delay:.4s}
 .letter p:nth-child(2){animation-delay:1.4s}
 .letter p:nth-child(3){animation-delay:2.4s}
 .letter p:nth-child(4){animation-delay:3.4s}
 
-@keyframes letterIn{
+.personal p:nth-child(1){animation-delay:.6s}
+.personal p:nth-child(2){animation-delay:1.6s}
+.personal p:nth-child(3){animation-delay:2.6s}
+
+@keyframes fadeUp{
   to{opacity:1;transform:translateY(0)}
 }
 
-/* PAGE 3 – QUESTION */
+/* buttons */
 .buttons{
   margin-top:40px;
   position:relative;
@@ -120,32 +122,48 @@ button{
   position:absolute;
 }
 
-/* PAGE 4 – PHOTOS + EFFECTS */
+/* ===== PHOTO FRAMES + ANIMATION ===== */
 .gallery{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:18px;
+  gap:22px;
   margin-top:30px;
 }
-.gallery img{
-  width:100%;
-  border-radius:20px;
+
+/* frame */
+.frame{
+  background:#fff;
+  padding:10px;
+  border-radius:18px;
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.18),
+    inset 0 0 0 1px rgba(255,111,145,.15);
   opacity:0;
   transform:translateY(30px) scale(.9);
-  animation:photoIn 1s forwards, glow 3s infinite alternate;
-  box-shadow:0 20px 50px rgba(0,0,0,.2);
+  animation:frameIn 1s forwards, floatFrame 6s ease-in-out infinite;
 }
-.gallery img:nth-child(1){animation-delay:.2s}
-.gallery img:nth-child(2){animation-delay:.5s}
-.gallery img:nth-child(3){animation-delay:.8s}
-.gallery img:nth-child(4){animation-delay:1.1s}
 
-@keyframes photoIn{
+/* stagger */
+.frame:nth-child(1){animation-delay:.2s}
+.frame:nth-child(2){animation-delay:.5s}
+.frame:nth-child(3){animation-delay:.8s}
+.frame:nth-child(4){animation-delay:1.1s}
+
+.frame img{
+  width:100%;
+  border-radius:14px;
+  display:block;
+}
+
+/* entrance */
+@keyframes frameIn{
   to{opacity:1;transform:translateY(0) scale(1)}
 }
-@keyframes glow{
-  from{box-shadow:0 0 20px rgba(255,111,145,.3)}
-  to{box-shadow:0 0 45px rgba(255,111,145,.6)}
+
+/* slow floating motion */
+@keyframes floatFrame{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-6px) rotate(0.5deg)}
 }
 </style>
 </head>
@@ -157,7 +175,6 @@ button{
 </audio>
 
 <script>
-/* hearts */
 for(let i=0;i<30;i++){
   let h=document.createElement("div");
   h.className="heart";
@@ -184,42 +201,50 @@ for(let i=0;i<30;i++){
     <p>I thought of saying this in person,</p>
     <p>but some feelings deserve a quieter moment.</p>
     <p>So I wrote this instead.</p>
-    <button onclick="startMusicAndGo()">Continue</button>
+    <button onclick="go(3)">Continue</button>
   </div>
 </div>
 
 <!-- PAGE 3 -->
 <div class="screen" id="p3">
-  <div class="card">
-    <h2>Will you be my Valentine?</h2>
-    <div class="buttons">
-      <button id="yes" onclick="yes()">Yes</button>
-      <button id="no" onmouseover="run()">No</button>
-    </div>
+  <div class="card personal">
+    <p>This is where I’m honest.</p>
+    <p>
+      You make things feel lighter without trying.
+      I like the way conversations with you never feel forced.
+      Somewhere between all of that, I realised I care.
+    </p>
+    <p>I just wanted you to know this.</p>
+    <button onclick="go(4)">Continue</button>
   </div>
 </div>
 
 <!-- PAGE 4 -->
 <div class="screen" id="p4">
   <div class="card">
+    <h2>Will you be my Valentine?</h2>
+    <div class="buttons">
+      <button id="yes" onclick="go(5)">Yes</button>
+      <button id="no" onmouseover="run()">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="screen" id="p5">
+  <div class="card">
     <h2>You chose us 🌷</h2>
     <div class="gallery">
-       <img src="photo1.jpeg">
-       <img src="photo2.jpeg">
-       <img src="photo3.jpeg">
-       <img src="photo4.jpeg">
-
+      <div class="frame"><img src="photo1.jpeg"></div>
+      <div class="frame"><img src="photo2.jpeg"></div>
+      <div class="frame"><img src="photo3.jpeg"></div>
+      <div class="frame"><img src="photo4.jpeg"></div>
     </div>
   </div>
 </div>
 
 <script>
 function openMail(){
-  document.getElementById("mail").classList.add("open");
-  setTimeout(()=>go(2),800);
-}
-
-function startMusicAndGo(){
   const music=document.getElementById("music");
   music.volume=0;
   music.play();
@@ -229,16 +254,14 @@ function startMusicAndGo(){
     music.volume=v;
     if(v>=0.6) clearInterval(fade);
   },120);
-  go(3);
+
+  mail.classList.add("open");
+  setTimeout(()=>go(2),800);
 }
 
 function go(n){
   document.querySelector(".screen.active").classList.remove("active");
   document.getElementById("p"+n).classList.add("active");
-}
-
-function yes(){
-  go(4);
 }
 
 function run(){
